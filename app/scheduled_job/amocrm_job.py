@@ -36,13 +36,13 @@ async def update_products_by_amocrm():
 
         try:
             battery_range = re.search(r'\b(\d+)km\b', text).group(1) + " km"
-            text = text.replace(f"{battery_range}km ", "")
+            text = text.replace(f"{battery_range}km", "")
         except:
             battery_range = None
 
         try:
             battery_capacity = re.search(r'\b(\d+)kW\b', text).group(1) + " kW"
-            text = text.replace(f"{battery_capacity}kW ", "")
+            text = text.replace(f"{battery_capacity}kW", "")
         except:
             battery_capacity = None
 
