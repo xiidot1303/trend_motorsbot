@@ -3,6 +3,7 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from django_apscheduler.jobstores import register_events, DjangoJobStore
 from app.scheduled_job import amocrm_job
 from asgiref.sync import async_to_sync
+from app.services.amocrm_service import update_tokens as _update_tokens
 
 class jobs:
     scheduler = BackgroundScheduler(timezone='Asia/Tashkent')
@@ -14,6 +15,8 @@ class jobs:
         'interval', 
         minutes=10
         )
-    # scheduler.add_job(job.alert_clients, 'cron', hour=8, minute=0, second=0)
+    scheduler.add_job(
+        async_to_sync(_update_tokens), 
+        'cron', hour=1, minute=0, second=0)
 
     
