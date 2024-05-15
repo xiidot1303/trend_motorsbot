@@ -6,3 +6,4 @@ from app.serializers import ProductListSerializer
 class ProductListAPIView(generics.ListAPIView):
     queryset = product_list_all()
     serializer_class = ProductListSerializer
+
