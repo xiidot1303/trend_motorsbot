@@ -1,6 +1,6 @@
 n = 8
 (
-    SELECT_LANG,
+    GET_LANG,
     GET_NAME,
     GET_CONTACT,
     CLICK_LANG,

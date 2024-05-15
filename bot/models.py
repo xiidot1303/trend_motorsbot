@@ -6,7 +6,7 @@ class Bot_user(models.Model):
     name = models.CharField(null=True, blank=True, max_length=256, default='', verbose_name='Имя')
     username = models.CharField(null=True, blank=True, max_length=256, verbose_name='username')
     firstname = models.CharField(null=True, blank=True, max_length=256, verbose_name='Никнейм')
-    phone = models.CharField(null=True, blank=True, max_length=16, default='', verbose_name='Телефон')
+    phone = models.CharField(null=True, blank=True, max_length=16, verbose_name='Телефон')
     lang = models.CharField(null=True, blank=True, max_length=4, verbose_name='')
     date = models.DateTimeField(db_index=True, null=True, auto_now_add=True, blank=True, verbose_name='Дата регистрации')
 

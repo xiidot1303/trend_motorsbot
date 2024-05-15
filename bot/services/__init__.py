@@ -1,7 +1,10 @@
 from bot.models import *
+from asgiref.sync import sync_to_async
+from app.services import filter_objects_sync
 
-async def is_registered(id):
-    if await Bot_user.objects.filter(user_id=id).exclude(phone=None):
+@sync_to_async
+def is_registered(id):
+    if Bot_user.objects.filter(user_id=id).exclude(phone=None):
         return True
     else:
         return False

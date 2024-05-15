@@ -21,6 +21,11 @@ async def _inline_footer_buttons(update, buttons, back=True, main_menu=True):
     buttons.append(new_buttons)
     return buttons
 
+async def select_lang_keyboard():
+    buttons = [["UZ 🇺🇿", "RU 🇷🇺"]]
+    markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True, one_time_keyboard=True)
+    return markup
+
 async def settings_keyboard(update):
 
     buttons = [
