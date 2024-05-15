@@ -17,3 +17,19 @@ class Product(models.Model):
     class Meta:
         pass
 
+
+class Order_item(models.Model):
+    product = models.ForeignKey('app.Product', null=True, blank=True, on_delete=models.PROTECT)
+    price = models.BigIntegerField(null=True, blank=True, default=0)
+
+    class Meta:
+        pass
+
+
+class Order(models.Model):
+    bot_user = models.ForeignKey('bot.Bot_user', null=True, blank=True, on_delete=models.PROTECT)
+    personal_data = models.JSONField(null=True, blank=True)
+    order_item = models.ForeignKey('app.Order_item', null=True, blank=True, on_delete=models.PROTECT)
+    contract = models.FileField(null=True, blank=True, upload_to='contract')
+    datetime = models.DateTimeField(null=True, db_index=True, auto_now_add=True)
+    

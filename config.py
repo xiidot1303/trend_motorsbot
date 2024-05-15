@@ -21,3 +21,7 @@ WEBHOOK_URL = os.environ.get("WEBHOOK_URL")
 # AmoCrm
 AMOCRM_CLIENT_ID = os.environ.get("AMOCRM_CLIENT_ID")
 AMOCRM_CLIENT_SECRET = os.environ.get("AMOCRM_CLIENT_SECRET")
+
+MYCAR_LOGIN = os.environ.get("MYCAR_LOGIN")
+MYCAR_PASSWORD = os.environ.get("MYCAR_PASSWORD")
+
