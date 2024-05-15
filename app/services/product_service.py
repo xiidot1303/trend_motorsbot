@@ -25,3 +25,6 @@ async def update_or_create_product(
         product.price = price
         product.remainder = remainder
         await product.asave()
+
+def product_list_all():
+    return Product.objects.all()

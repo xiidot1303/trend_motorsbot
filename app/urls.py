@@ -7,7 +7,7 @@ from django.contrib.auth.views import (
 )
 
 from app.views import (
-    main
+    main, product
 )
 
 urlpatterns = [
@@ -18,6 +18,9 @@ urlpatterns = [
     path('changepassword/done/', PasswordChangeDoneView.as_view(
         template_name = 'registration/afterchanging.html'), name='password_change_done'),
     path('logout/', LogoutView.as_view(), name='logout'),
+
+    # product
+    path('api/product/list', product.ProductListAPIView.as_view(), name="api_product_list"),
 
     # files
     re_path(r'^files/(?P<path>.*)$', main.get_file),
