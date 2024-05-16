@@ -8,6 +8,8 @@ class Product(models.Model):
     color = models.CharField(null=True, blank=True, max_length=64)
     price = models.BigIntegerField(null=True, blank=True, default=0)
     category = models.CharField(null=True, blank=True, max_length=64)
+    description = models.TextField(null=True, blank=True, max_length=2048, default='')
+    photo = models.FileField(null=True, blank=True, upload_to='photos')
 
     battery_range = models.CharField(null=True, blank=True, max_length=16) # km
     battery_capacity = models.CharField(null=True, blank=True, max_length=16) # kW

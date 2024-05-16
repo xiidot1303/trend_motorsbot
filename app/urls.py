@@ -7,7 +7,7 @@ from django.contrib.auth.views import (
 )
 
 from app.views import (
-    main, product
+    main, product, api
 )
 
 urlpatterns = [
@@ -21,6 +21,9 @@ urlpatterns = [
 
     # product
     path('api/product/list', product.ProductListAPIView.as_view(), name="api_product_list"),
+    path('api/product/<int:id>', product.ProductDetailAPIView.as_view(), name="api_product_detail"),
+
+    path("api/get-personal-data", api.PersonalDataByPassport.as_view()),
 
     # files
     re_path(r'^files/(?P<path>.*)$', main.get_file),
