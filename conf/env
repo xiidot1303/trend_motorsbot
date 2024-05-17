@@ -1,3 +1,4 @@
+PORT=<port>
 SECRET_KEY=<secret_key>
 ALLOWED_HOSTS=*
 CSRF_TRUSTED_ORIGINS=

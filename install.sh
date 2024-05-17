@@ -28,6 +28,7 @@ echo $access_token > amocrm_tokens/access.txt
 echo $refresh_token > amocrm_tokens/refresh.txt
 
 cp conf/env .env
+sed -i "s/<port>/$port/g" ".env"
 sed -i "s/<secret_key>/$secret_key/g" ".env"
 sed -i "s/<db_name>/$project_title/g" ".env"
 sed -i "s/<db_user>/$db_user/g" ".env"

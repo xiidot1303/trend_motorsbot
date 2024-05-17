@@ -3,6 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv(os.path.join(".env"))
 
+PORT = int(os.environ.get("PORT"))
 SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG")
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(",")
