@@ -51,7 +51,6 @@ python3 manage.py createsuperuser
 touch $project_title
 sed -i "s/<title>/$project_title/g" "conf/supervisor.conf"
 sed -i "s/<folder>/$project_title/g" "conf/supervisor.conf"
-sed -i "s/<port>/$port/g" "conf/supervisor.conf"
 sed -i "s/<user>/$user/g" "conf/supervisor.conf"
 sudo cp conf/supervisor.conf /etc/supervisor/conf.d/$project_title.conf
 sudo supervisorctl reread
