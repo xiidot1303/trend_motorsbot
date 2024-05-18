@@ -16,6 +16,7 @@ click-repl==0.3.0
 distlib==0.3.8
 Django==4.2.13
 django-apscheduler==0.6.2
+django-cors-headers==4.3.1
 django-jazzmin==3.0.0
 djangorestframework==3.15.1
 exceptiongroup==1.2.1
