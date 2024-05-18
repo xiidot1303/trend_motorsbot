@@ -9,6 +9,7 @@ from bot.resources.strings import lang_dict
 from bot.services import *
 from bot.services.language_service import *
 from bot.resources.conversationList import *
+from config import WEBAPP_URL
 
 @dataclass
 class WebhookUpdate:
@@ -38,8 +39,12 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     update = update.callback_query if update.callback_query else update
 
     bot = context.bot
+    buy_car_button = KeyboardButton(
+        text=await get_word('order car', update),
+        web_app=WebAppInfo(url=WEBAPP_URL)
+    )
     keyboards = [
-        [await get_word('order car', update)],
+        [buy_car_button],
     ]
 
     reply_markup = ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)

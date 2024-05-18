@@ -38,7 +38,9 @@ login_handler = ConversationHandler(
     name="login",
 )
 
+web_app_data_handler = MessageHandler(filters.StatusUpdate.WEB_APP_DATA, main.web_app_data)
+
 handlers = [
     login_handler,
-
+    web_app_data_handler,
 ]
