@@ -58,3 +58,7 @@ def get_or_create_passport_data(
         defaults=personal_data.__dict__
     )
     return obj
+
+async def get_passport_data_by_serial_number(serial, number):
+    obj = await Passport_data.objects.aget(serial=serial, number=number)
+    return obj

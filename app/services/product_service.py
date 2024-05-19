@@ -28,3 +28,7 @@ async def update_or_create_product(
 
 def product_list_all():
     return Product.objects.all()
+
+async def get_product_by_id(id):
+    obj = await Product.objects.aget(pk=id)
+    return obj

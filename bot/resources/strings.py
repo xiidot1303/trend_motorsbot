@@ -59,7 +59,7 @@ lang_dict = {
 
     "order car": ["📄 Mashina buyurtma qilish", "📄 Заказ авто"],
 
-    "": ["", ""],
+    "error getting web app data": ["", ""],
 
     "": ["", ""],
 

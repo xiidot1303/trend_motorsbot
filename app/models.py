@@ -30,7 +30,7 @@ class Order_item(models.Model):
 
 class Order(models.Model):
     bot_user = models.ForeignKey('bot.Bot_user', null=True, blank=True, on_delete=models.PROTECT)
-    personal_data = models.JSONField(null=True, blank=True)
+    passport_data = models.ForeignKey('app.Passport_data', null=True, blank=True, on_delete=models.PROTECT)
     order_item = models.ForeignKey('app.Order_item', null=True, blank=True, on_delete=models.PROTECT)
     contract = models.FileField(null=True, blank=True, upload_to='contract')
     datetime = models.DateTimeField(null=True, db_index=True, auto_now_add=True)

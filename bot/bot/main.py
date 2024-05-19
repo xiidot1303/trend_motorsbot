@@ -17,8 +17,3 @@ async def start(update: Update, context: CustomContext):
             reply_markup= await select_lang_keyboard()
         )
         return GET_LANG
-
-async def web_app_data(update: Update, context: CustomContext) -> None:
-    data = json.loads(update.effective_message.web_app_data.data)
-    print(data)
-    await update_message_reply_text(update, "received data")

@@ -12,7 +12,7 @@ from bot.resources.strings import lang_dict
 from bot.resources.conversationList import *
 
 from bot.bot import (
-    main, login
+    main, login, web_app
 )
 
 
@@ -38,7 +38,7 @@ login_handler = ConversationHandler(
     name="login",
 )
 
-web_app_data_handler = MessageHandler(filters.StatusUpdate.WEB_APP_DATA, main.web_app_data)
+web_app_data_handler = MessageHandler(filters.StatusUpdate.WEB_APP_DATA, web_app.web_app_data)
 
 handlers = [
     login_handler,
