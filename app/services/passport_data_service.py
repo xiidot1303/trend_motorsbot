@@ -1,5 +1,6 @@
 from app.services import *
 from config import MYCAR_LOGIN, MYCAR_PASSWORD
+from app.models import Passport_data
 
 class Personal_data:
     def __init__(self, pnfl=None, surname=None, name=None, patronym=None, birth_place=None, nationality=None, blank=False):
@@ -46,3 +47,14 @@ async def get_personal_data_with_passport_data(
         personal_data = Personal_data(blank=True)
     return personal_data
 
+def get_or_create_passport_data(
+        passport_serial, passport_number, birth_date, personal_data: Personal_data
+    ):
+    # turn birth_data to datetim object
+    birth_date_obj = datetime.strptime(birth_date, "%Y-%m-%d").date()
+    # get object or create with Personal data
+    obj, is_created = Passport_data.objects.get_or_create(
+        serial = passport_serial, number = passport_number, birth_date=birth_date_obj,
+        defaults=personal_data.__dict__
+    )
+    return obj

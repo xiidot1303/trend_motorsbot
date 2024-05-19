@@ -35,3 +35,19 @@ class Order(models.Model):
     contract = models.FileField(null=True, blank=True, upload_to='contract')
     datetime = models.DateTimeField(null=True, db_index=True, auto_now_add=True)
     
+class Passport_data(models.Model):
+    serial = models.CharField(null=True, blank=False, max_length=8)
+    number = models.CharField(null=True, blank=False, max_length=16)
+    birth_date = models.DateField(null=True, blank=True)
+
+    # personal data
+    pnfl = models.CharField(null=True, blank=False, max_length=16)
+    surname = models.CharField(null=True, blank=False, max_length=32)
+    name = models.CharField(null=True, blank=False, max_length=32)
+    patronym = models.CharField(null=True, blank=False, max_length=32)
+    birth_place = models.CharField(null=True, blank=False, max_length=32)
+    nationality = models.CharField(null=True, blank=False, max_length=32)
+
+
+    
+
