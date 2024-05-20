@@ -3,7 +3,10 @@ from config import MYCAR_LOGIN, MYCAR_PASSWORD
 from app.models import Passport_data
 
 class Personal_data:
-    def __init__(self, pnfl=None, surname=None, name=None, patronym=None, birth_place=None, nationality=None, blank=False):
+    def __init__(self, pnfl=None, surname=None, name=None, 
+        patronym=None, birth_place=None, nationality=None, 
+        doc_give_place=None, date_begin_document=None, blank=False
+        ):
         if not blank:
             self.pnfl = pnfl
             self.surname = surname
@@ -11,6 +14,8 @@ class Personal_data:
             self.patronym = patronym
             self.birth_place = birth_place
             self.nationality = nationality
+            self.doc_give_place = doc_give_place
+            self.date_begin_document = date_begin_document
         
 
 async def auth_mycar_and_get_token():
@@ -41,7 +46,7 @@ async def get_personal_data_with_passport_data(
         data = data[0]
         personal_data = Personal_data(
             data['pnfl'], data['surname_latin'], data['name_latin'], data['patronym_latin'],
-            data['birth_place'], data['nationality']
+            data['birth_place'], data['nationality'], data['doc_give_place'], data['date_begin_document']
         )
     else:
         personal_data = Personal_data(blank=True)

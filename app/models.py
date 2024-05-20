@@ -47,7 +47,8 @@ class Passport_data(models.Model):
     patronym = models.CharField(null=True, blank=False, max_length=32)
     birth_place = models.CharField(null=True, blank=False, max_length=32)
     nationality = models.CharField(null=True, blank=False, max_length=32)
-
+    doc_give_place = models.CharField(null=True, blank=False, max_length=255)
+    date_begin_document = models.DateField(null=True, blank=True)
 
     
 

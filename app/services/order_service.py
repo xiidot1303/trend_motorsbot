@@ -36,6 +36,8 @@ async def generate_contract_and_set_to_order(order: Order):
         "[[passport_serial]]": passport_data.serial,
         "[[passport_number]]": passport_data.number,
         "[[birth_date]]": passport_data.birth_date.strftime("%d.%m.%Y"),
+        "[[doc_give_place]]": passport_data.doc_give_place,
+        "[[date_begin_document]]": passport_data.date_begin_document.strftime("%d.%m.%Y"),
 
         "[[product_title]]": order.order_item.product.title,
         "[[price]]": order.order_item.price,
