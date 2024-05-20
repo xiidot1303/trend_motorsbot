@@ -16,9 +16,9 @@ class PersonalDataByPassport(APIView):
             data: Personal_data = async_to_sync(get_personal_data_with_passport_data)(
                 serial, number, birth_date
             )
-            # save to db
+            # save to db if data is available
             get_or_create_passport_data(
                 serial, number, birth_date, data
-            )
+            ) if data.__dict__ else None
             return Response(data.__dict__, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
