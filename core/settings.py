@@ -147,8 +147,8 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
-STATIC_URL = "/static/"
-MEDIA_URL = "/files/"
+STATIC_URL = f"{CSRF_TRUSTED_ORIGINS[0]}/static/"
+MEDIA_URL = f"{CSRF_TRUSTED_ORIGINS[0]}/files/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "files")
 
 # Default primary key field type
