@@ -25,6 +25,9 @@ urlpatterns = [
 
     path("api/get-personal-data", api.PersonalDataByPassport.as_view()),
 
+    # branch
+    path('api/branch/list', api.BranchListAPIView.as_view(), name='api_branch_list'),
+
     # files
     re_path(r'^files/(?P<path>.*)$', main.get_file),
 

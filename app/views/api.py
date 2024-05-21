@@ -1,8 +1,10 @@
 from app.views import *
 from rest_framework.views import APIView
-from app.serializers import PassportDataSerializer
+from rest_framework import generics
+from app.serializers import PassportDataSerializer, BranchSerializer
 from app.services.passport_data_service import *
 from asgiref.sync import async_to_sync
+from app.models import Branch
 
 class PersonalDataByPassport(APIView):
     def post(self, request):
@@ -22,3 +24,7 @@ class PersonalDataByPassport(APIView):
             ) if data.__dict__ else None
             return Response(data.__dict__, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class BranchListAPIView(generics.ListAPIView):
+    queryset = Branch.objects.all()
+    serializer_class = BranchSerializer

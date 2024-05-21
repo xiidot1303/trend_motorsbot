@@ -15,3 +15,8 @@ class PassportDataSerializer(serializers.Serializer):
     serial = serializers.CharField()
     number = serializers.CharField()
     birth_date = serializers.CharField()
+
+class BranchSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Branch
+        fields = "__all__"
