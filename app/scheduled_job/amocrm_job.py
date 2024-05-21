@@ -46,7 +46,7 @@ async def update_products_by_amocrm():
         except:
             battery_capacity = None
 
-        model = text
+        model = text.strip()
 
         # save product data
         await update_or_create_product(
