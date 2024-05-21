@@ -19,14 +19,12 @@ class Product(models.Model):
     class Meta:
         pass
 
-
 class Order_item(models.Model):
     product = models.ForeignKey('app.Product', null=True, blank=True, on_delete=models.PROTECT)
     price = models.BigIntegerField(null=True, blank=True, default=0)
 
     class Meta:
         pass
-
 
 class Order(models.Model):
     bot_user = models.ForeignKey('bot.Bot_user', null=True, blank=True, on_delete=models.PROTECT)
@@ -51,4 +49,22 @@ class Passport_data(models.Model):
     date_begin_document = models.DateField(null=True, blank=True)
 
     
-
+class Branch(models.Model):
+    title = models.CharField(null=True, blank=False, max_length=255)
+    REGIION_CHOICES = [
+        ('andijan', 'Andijon viloyati'),
+        ('bukhara', 'Buxoro viloyati'),
+        ('fergana', 'Farg‘ona viloyati'),
+        ('jizzakh', 'Jizzax viloyati'),
+        ('kashkadarya', 'Qashqadaryo viloyati'),
+        ('khorezm', 'Xorazm viloyati'),
+        ('namangan', 'Namangan viloyati'),
+        ('navoiy', 'Navoiy viloyati'),
+        ('samarkand', 'Samarqand viloyati'),
+        ('sirdaryo', 'Sirdaryo viloyati'),
+        ('surkhandarya', 'Surxondaryo viloyati'),
+        ('tashkent', 'Toshkent viloyati'),
+        ('karakalpakstan', 'Qoraqalpog‘iston Respublikasi'),
+        ('tashkent_city', 'Toshkent')
+    ]
+    region = models.CharField(null=True, blank=True, max_length=64, choices=REGIION_CHOICES)
