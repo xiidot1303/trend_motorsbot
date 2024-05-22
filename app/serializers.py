@@ -20,3 +20,6 @@ class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
         fields = "__all__"
+
+class ProductIdSerializer(serializers.Serializer):
+    product_id = serializers.IntegerField()

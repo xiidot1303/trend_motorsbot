@@ -1,5 +1,5 @@
 from app.services import *
-from app.models import Vin_code, Product
+from app.models import Vin_code, Product, Branch
 from asgiref.sync import sync_to_async
 
 async def update_or_create_vin_code(
@@ -28,3 +28,12 @@ async def update_or_create_vin_code(
 @sync_to_async
 def get_object_product(obj: Vin_code):
     return obj.product
+
+def filter_branches_by_product(product: Product):
+    # filter vin codes of this product
+    vin_codes = Vin_code.objects.filter(product=product)
+    # get list of branch titles from vin codes
+    branch_titles = vin_codes.values_list('branch_title', flat=True)
+    # filter branches by this titles
+    branches = Branch.objects.filter(title__in = branch_titles)
+    return branches

@@ -27,6 +27,7 @@ urlpatterns = [
 
     # branch
     path('api/branch/list', api.BranchListAPIView.as_view(), name='api_branch_list'),
+    path('api/branches-of-product', api.GetBranchesForProduct.as_view()),
 
     # files
     re_path(r'^files/(?P<path>.*)$', main.get_file),
