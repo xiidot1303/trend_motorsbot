@@ -33,24 +33,37 @@ async def get_catalog():
     async with aiofiles.open('amocrm_tokens/access.txt', mode='r') as f:
         access_token = await f.read()
 
-    url = URL + '/api/v4/catalogs/12730/elements'
+    url = URL + '/api/v4/catalogs/12730/elements?limit=250&page=1'
     headers = {"Authorization": f"Bearer {access_token}"}
-    content, headers = await send_request(url, headers=headers)
-    
-    # get elements from request
-    elements = content["_embedded"]["elements"]
+    result = []
+    while True:
+        content, h = await send_request(url, headers=headers)
+        # get elements from request
+        elements = content["_embedded"]["elements"]
+        result += elements
+        if "next" in content["_links"]:
+            url = content["_links"]["next"]['href']
+        else:
+            break
 
-    return elements
+    return result
 
 async def get_vin_codes():
     # get access token
     async with aiofiles.open('amocrm_tokens/access.txt', mode='r') as f:
         access_token = await f.read()
-    url = URL + '/api/v4/catalogs/13091/elements'
+    url = URL + '/api/v4/catalogs/13091/elements?limit=250&page=1'
     headers = {"Authorization": f"Bearer {access_token}"}
-    content, headers = await send_request(url, headers=headers)
+    result = []
+    while True:
+        content, h = await send_request(url, headers=headers)
+        # get elements from request
+        elements = content["_embedded"]["elements"]
+        result += elements
+        if "next" in content["_links"]:
+            url = content["_links"]["next"]['href']
+        else:
+            break
 
-    # get elements from request
-    elements = content["_embedded"]["elements"]
-    return elements
+    return result
     
