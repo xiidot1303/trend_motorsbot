@@ -68,3 +68,10 @@ class Branch(models.Model):
         ('tashkent_city', 'Toshkent')
     ]
     region = models.CharField(null=True, blank=True, max_length=64, choices=REGIION_CHOICES)
+
+class Vin_code(models.Model):
+    element_id = models.BigIntegerField(null=True, blank=False)
+    full_title = models.CharField(null=True, blank=True, max_length=255)
+    code = models.CharField(null=True, blank=True, max_length=64)
+    product = models.ForeignKey('app.Product', null=True, blank=True, on_delete=models.PROTECT)
+    branch_title = models.CharField(null=True, blank=True, max_length=255)

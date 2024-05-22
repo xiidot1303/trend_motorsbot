@@ -1,5 +1,6 @@
-from app.services.amocrm_service import  get_catalog
+from app.services.amocrm_service import  get_catalog, get_vin_codes
 from app.services.product_service import update_or_create_product
+from app.services.vin_code_service import update_or_create_vin_code
 import re
 
 async def update_products_by_amocrm():
@@ -54,3 +55,19 @@ async def update_products_by_amocrm():
             color, price, category, battery_range, 
             battery_capacity, remainder
         )
+
+async def update_vin_code_by_amocrm():
+    elements = await get_vin_codes()
+
+    for element in elements:
+        # get data from request
+        element_id = element["id"]
+        full_title = element["name"]
+        try:
+            vin_code, product_title, branch_title = full_title.split("|")
+            # create vin code object
+            await update_or_create_vin_code(
+                element_id, full_title, vin_code.strip(), product_title.strip(), branch_title.strip()
+            )
+        except:
+            None 

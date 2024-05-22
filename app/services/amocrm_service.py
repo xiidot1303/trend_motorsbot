@@ -41,3 +41,16 @@ async def get_catalog():
     elements = content["_embedded"]["elements"]
 
     return elements
+
+async def get_vin_codes():
+    # get access token
+    async with aiofiles.open('amocrm_tokens/access.txt', mode='r') as f:
+        access_token = await f.read()
+    url = URL + '/api/v4/catalogs/13091/elements'
+    headers = {"Authorization": f"Bearer {access_token}"}
+    content, headers = await send_request(url, headers=headers)
+
+    # get elements from request
+    elements = content["_embedded"]["elements"]
+    return elements
+    
