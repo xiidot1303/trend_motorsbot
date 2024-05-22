@@ -52,7 +52,7 @@ async def get_catalog():
 
 async def get_vin_codes():
     url = URL + '/api/v4/catalogs/13091/elements?limit=250&page=1'
-    headers = generate_headers()
+    headers = await generate_headers()
     result = []
     while True:
         content, h = await send_request(url, headers=headers)
@@ -71,7 +71,7 @@ async def create_contact(
         date_birth, doc_give_place, date_begin_document, pnfl, birth_place
     ):    
     url = URL + '/api/v4/contacts'
-    headers = generate_headers()
+    headers = await generate_headers()
     method = "post"
     data = [
         {
