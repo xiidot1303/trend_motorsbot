@@ -61,7 +61,7 @@ lang_dict = {
 
     "error getting web app data": ["", ""],
 
-    "": ["", ""],
+    "this car is already taken": ["", ""],
 
     "": ["", ""],
 

@@ -37,3 +37,14 @@ def filter_branches_by_product(product: Product):
     # filter branches by this titles
     branches = Branch.objects.filter(title__in = branch_titles)
     return branches
+
+@sync_to_async
+def delete_vin_codes_by_element_ids(ids):
+    query = Vin_code.objects.exclude(element_id__in = ids)
+    query.delete()
+
+@sync_to_async
+def get_vin_code_by_product_and_branch(product: Product, branch_id: int):
+    branch: Branch = Branch.objects.get(pk=branch_id)
+    vin_codes = Vin_code.objects.filter(product = product, branch_title = branch.title)
+    return vin_codes[0] if vin_codes else None

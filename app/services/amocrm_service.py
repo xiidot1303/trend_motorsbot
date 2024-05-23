@@ -68,7 +68,7 @@ async def get_vin_codes():
     
 async def create_contact(
         name, surname, phone_number, passport_serial, passport_number,
-        date_birth, doc_give_place, date_begin_document, pnfl, birth_place
+        date_birth: int, doc_give_place, date_begin_document: int, pnfl, birth_place
     ):    
     url = URL + '/api/v4/contacts'
     headers = await generate_headers()

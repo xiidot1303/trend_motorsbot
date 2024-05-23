@@ -31,6 +31,7 @@ class Order(models.Model):
     passport_data = models.ForeignKey('app.Passport_data', null=True, blank=True, on_delete=models.PROTECT)
     order_item = models.ForeignKey('app.Order_item', null=True, blank=True, on_delete=models.PROTECT)
     contract = models.FileField(null=True, blank=True, upload_to='contract')
+    amocrm_lead_id = models.BigIntegerField(null=True, blank=True)
     datetime = models.DateTimeField(null=True, db_index=True, auto_now_add=True)
     
 class Passport_data(models.Model):

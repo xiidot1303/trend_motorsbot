@@ -18,7 +18,7 @@ class jobs:
     scheduler.add_job(
         async_to_sync(amocrm_job.update_vin_code_by_amocrm), 
         'interval', 
-        minutes=9
+        minutes=5
         )
     scheduler.add_job(
         async_to_sync(_update_tokens), 
