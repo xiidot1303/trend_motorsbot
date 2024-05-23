@@ -153,3 +153,100 @@ async def create_contact(
     content, h = await send_request(url, data, headers=headers, type=method)
     contact_id = content['_embedded']['contacts'][0]['id']
     return contact_id
+
+async def create_lead():
+    url = URL + "/api/v4/leads"
+    headers = await generate_headers()
+
+    data = [
+        {
+            "created_by": 0,
+            "pipeline_id": 7492114,
+            "custom_fields_values": [
+                {
+                    "field_id": 1614073,
+                    "values": [
+                        {
+                            "value": "Безналичный",
+                            "enum_id": 3832001,
+                            "enum_code": None
+                        }
+                    ]
+                },
+                {
+                    "field_id": 1616659,
+                    "values": [
+                        {
+                            "value": "Реклама в интернете",
+                            "enum_id": 4028735,
+                            "enum_code": None
+                        }
+                    ]
+                },
+                {
+                    "field_id": 1598657,
+                    "values": [
+                        {
+                            "value": "Электромобиль",
+                            "enum_id": 1026879,
+                            "enum_code": None
+                        }
+                    ]
+                },
+                {
+                "field_id": 1617025,
+                "values": [
+                        {
+                            "value": True
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+    content, h = await send_request(url, data, headers=headers, type='post')
+    lead_id = content['_embedded']['leads'][0]['id']
+    return lead_id
+
+async def link_vin_code_and_contact_to_lead(
+        lead_id, vin_code_id, contact_id
+    ):
+    headers = await generate_headers()
+    url = URL + f"/api/v4/leads/{lead_id}/link"
+
+    data = [
+        {
+            "to_entity_id": vin_code_id,
+            "to_entity_type": "catalog_elements",
+            "metadata": {
+                "quantity": 1,
+                "catalog_id": 13091
+            }
+        },
+        {
+            "to_entity_id": contact_id,
+            "to_entity_type": "contacts",
+            "metadata": {
+                "is_main": True
+            }
+        }
+    ]
+
+    content, h = await send_request(url, data, headers=headers, type='post')
+    return
+
+async def change_lead_status(lead_id):
+    url = URL + "/api/v4/leads"
+    headers = await generate_headers()
+
+    data = [
+        {
+            "id": lead_id,
+            "pipeline_id": 7492114,
+            "status_id": 62145310
+        }
+    ]
+
+    response = requests.patch(url, json=data, headers=headers)
+    status = response.status_code
+    return status
