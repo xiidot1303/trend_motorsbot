@@ -63,7 +63,10 @@ lang_dict = {
 
     "this car is already taken": ["", ""],
 
-    "": ["", ""],
+    "successfully ordered": [
+        "Sizning buyurtmangiz muvaffaqiyatli amalga oshirildi. Bir ozdan so'ng shartnomani qabul qilib olasiz", 
+        "Ваш заказ успешно принят. В ближайшее время мы вышлем вам контракт."
+        ],
 
     "": ["", ""],
 

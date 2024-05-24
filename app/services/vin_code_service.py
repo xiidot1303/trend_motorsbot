@@ -46,5 +46,7 @@ def delete_vin_codes_by_element_ids(ids):
 @sync_to_async
 def get_vin_code_by_product_and_branch(product: Product, branch_id: int):
     branch: Branch = Branch.objects.get(pk=branch_id)
-    vin_codes = Vin_code.objects.filter(product = product, branch_title = branch.title)
+    # vin_codes = Vin_code.objects.filter(product = product, branch_title = branch.title)
+    # testing
+    vin_codes = Vin_code.objects.filter(product = product)
     return vin_codes[0] if vin_codes else None
