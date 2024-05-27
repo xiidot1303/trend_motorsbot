@@ -2,22 +2,24 @@ from django.db import models
 
 class Product(models.Model):
     element_id = models.BigIntegerField(null=True, blank=False)
-    title = models.CharField(null=True, blank=True, max_length=255)
-    model = models.CharField(null=True, blank=True, max_length=64)
-    brand = models.CharField(null=True, blank=True, max_length=64)
-    color = models.CharField(null=True, blank=True, max_length=64)
-    price = models.BigIntegerField(null=True, blank=True, default=0)
-    category = models.CharField(null=True, blank=True, max_length=64)
-    description = models.TextField(null=True, blank=True, max_length=2048, default='')
-    photo = models.FileField(null=True, blank=True, upload_to='photos')
+    title = models.CharField(null=True, blank=True, max_length=255, verbose_name="Название")
+    model = models.CharField(null=True, blank=True, max_length=64, verbose_name="Модель")
+    brand = models.CharField(null=True, blank=True, max_length=64, verbose_name="Марка")
+    color = models.CharField(null=True, blank=True, max_length=64, verbose_name="Цвет")
+    price = models.BigIntegerField(null=True, blank=True, default=0, verbose_name="Цена")
+    category = models.CharField(null=True, blank=True, max_length=64, verbose_name="Категория")
+    description = models.TextField(null=True, blank=True, max_length=2048, default='', verbose_name="Описание")
+    photo = models.FileField(null=True, blank=True, upload_to='photos', verbose_name="Фото")
 
-    battery_range = models.CharField(null=True, blank=True, max_length=16) # km
-    battery_capacity = models.CharField(null=True, blank=True, max_length=16) # kW
+    battery_range = models.CharField(null=True, blank=True, max_length=16, verbose_name="Диапазон аккумулятора") # km
+    battery_capacity = models.CharField(null=True, blank=True, max_length=16, verbose_name="Емкость батарей") # kW
 
-    remainder = models.IntegerField(null=True, blank=True, default=0) # остатка
+    remainder = models.IntegerField(null=True, blank=True, default=0, verbose_name="Остаток") # остатка
 
     class Meta:
-        pass
+        verbose_name = "Продукт"
+        verbose_name_plural = "Продукты"
+
 
 class Order_item(models.Model):
     product = models.ForeignKey('app.Product', null=True, blank=True, on_delete=models.PROTECT)
