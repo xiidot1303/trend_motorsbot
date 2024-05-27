@@ -27,7 +27,7 @@ async def update_or_create_product(
         await product.asave()
 
 def product_list_all():
-    return Product.objects.all()
+    return Product.objects.all().order_by('pk')
 
 async def get_product_by_id(id):
     obj = await Product.objects.aget(pk=id)
