@@ -53,3 +53,8 @@ async def generate_contract_and_set_to_order(order: Order):
     order.contract = contract_file_path
     await order.asave()
     return contract_file_path
+
+async def set_amocrm_lead_id_to_order(order: Order, lead_id):
+    order.amocrm_lead_id = lead_id
+    await order.asave()
+    return
