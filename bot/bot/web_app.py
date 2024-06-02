@@ -71,7 +71,7 @@ async def send_contract(
     lead_id = await amocrm.create_lead()
 
     # set lead id to order
-    set_amocrm_lead_id_to_order(order, lead_id)
+    await set_amocrm_lead_id_to_order(order, lead_id)
 
     # link contact and add vin code to lead
     await amocrm.link_vin_code_and_contact_to_lead(
