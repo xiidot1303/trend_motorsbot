@@ -23,3 +23,7 @@ class BranchSerializer(serializers.ModelSerializer):
 
 class ProductIdSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
+
+class GetContractSerializer(serializers.Serializer):
+    lead_id = serializers.IntegerField()
+    contract = serializers.CharField()

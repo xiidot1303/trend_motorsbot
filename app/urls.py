@@ -7,7 +7,7 @@ from django.contrib.auth.views import (
 )
 
 from app.views import (
-    main, product, api
+    main, product, api, one_c
 )
 
 urlpatterns = [
@@ -28,6 +28,9 @@ urlpatterns = [
     # branch
     path('api/branch/list', api.BranchListAPIView.as_view(), name='api_branch_list'),
     path('api/branches-of-product', api.GetBranchesForProduct.as_view()),
+
+    # 1c integration
+    path('api/set-contract', one_c.GetOrderContract.as_view()),
 
     # files
     re_path(r'^files/(?P<path>.*)$', main.get_file),
