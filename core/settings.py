@@ -166,6 +166,7 @@ CELERY_BROKER_URL = "redis://localhost:6379"
 
 if not DEBUG:
     SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 SWAGGER_SETTINGS = {
     'schemes': ['https', 'http'],  # Set the scheme to HTTPS
