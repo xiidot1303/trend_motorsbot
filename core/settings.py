@@ -34,6 +34,7 @@ CSRF_TRUSTED_ORIGINS = CSRF_TRUSTED_ORIGINS
 INSTALLED_APPS = [
     'app.apps.app',
     'bot.apps.bot',
+    'swagger',
     'jazzmin',
     'django_apscheduler',
     'django.contrib.admin',
@@ -44,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'drf_yasg',
 ]
 
 MIDDLEWARE = [

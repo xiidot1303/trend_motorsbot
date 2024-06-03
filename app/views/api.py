@@ -7,8 +7,10 @@ from app.services.product_service import *
 from app.services.vin_code_service import *
 from asgiref.sync import async_to_sync
 from app.models import Branch
+from swagger.responses import *
 
 class PersonalDataByPassport(APIView):
+    @swagger_auto_schema(request_body=PassportDataSerializer, responses=personal_data_by_passport_schema_dict)
     def post(self, request):
         serializer = PassportDataSerializer(data=request.data)
         if serializer.is_valid():
@@ -32,6 +34,7 @@ class BranchListAPIView(generics.ListAPIView):
     serializer_class = BranchSerializer
 
 class GetBranchesForProduct(APIView):
+    @swagger_auto_schema(request_body=ProductIdSerializer, responses={status.HTTP_200_OK: BranchSerializer})
     def post(self, request):
         serializer = ProductIdSerializer(data=request.data)
         if serializer.is_valid():

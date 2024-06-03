@@ -6,8 +6,10 @@ from app.services.order_service import generate_contract_and_set_to_order, Order
 from asgiref.sync import async_to_sync
 from bot.services.newsletter_service import send_contract_to_bot_user
 import asyncio
+from swagger import *
 
 class GetOrderContract(APIView):
+    @swagger_auto_schema(request_body=GetContractSerializer, responses={status.HTTP_200_OK: ""})
     def post(self, request):
         serializer = GetContractSerializer(data=request.data)
         if serializer.is_valid():
