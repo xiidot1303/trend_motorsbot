@@ -164,6 +164,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CELERY_BROKER_URL = "redis://localhost:6379"
 
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+
 SWAGGER_SETTINGS = {
-    'schemes': ['https'],  # Set the scheme to HTTPS
+    'schemes': ['https', 'http'],  # Set the scheme to HTTPS
 }
