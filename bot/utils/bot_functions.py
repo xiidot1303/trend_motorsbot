@@ -23,7 +23,7 @@ from telegram.ext import (
 from uuid import uuid4
 from config import BOT_API_TOKEN
 
-bot = Bot(BOT_API_TOKEN)
+# bot = Bot(BOT_API_TOKEN)
 
 async def update_message_reply_text(update: Update, text, reply_markup=None, disable_web_page_preview = True):
     message = await update.message.reply_text(
