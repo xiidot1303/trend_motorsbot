@@ -39,7 +39,7 @@ async def web_app_data(update: Update, context: CustomContext) -> None:
         # create lead and send contract in background
         loop = asyncio.get_event_loop()
         loop.create_task(send_contract(
-            bot_user, order, passport_data, vin_code
+            context, bot_user, order, passport_data, vin_code
         ))
 
     except:
@@ -48,8 +48,8 @@ async def web_app_data(update: Update, context: CustomContext) -> None:
         return
 
 async def send_contract(
-            bot_user: Bot_user, order: Order, passport_data: Passport_data,
-            vin_code: Vin_code
+            context: CustomContext, bot_user: Bot_user, order: Order, 
+            passport_data: Passport_data, vin_code: Vin_code
         ):
     # create contact in amocrm if not created in the past
     if not bot_user.amocrm_contact_id:
@@ -84,11 +84,11 @@ async def send_contract(
     if status == 200:
         # successed, can send contract after 3 seconds
         text = await get_word('successfully ordered', chat_id=bot_user.user_id)
-        await bot.send_message(bot_user.user_id, text)
+        await context.bot.send_message(bot_user.user_id, text)
         pass
     else:
         text = await get_word('error getting web app data', chat_id=bot_user.user_id)
-        await bot.send_message(bot_user.user_id, text)
+        await context.bot.send_message(bot_user.user_id, text)
         return
 
 
