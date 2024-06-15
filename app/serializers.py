@@ -19,7 +19,15 @@ class PassportDataSerializer(serializers.Serializer):
 class BranchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Branch
-        fields = "__all__"
+        fields = ['id', 'title', 'region']
+
+    def get_region_display(self, obj):
+        return obj.get_region_display()
+
+    def to_representation(self, instance):
+        representation = super().to_representation(instance)
+        representation['region'] = instance.get_region_display()
+        return representation
 
 class ProductIdSerializer(serializers.Serializer):
     product_id = serializers.IntegerField()
