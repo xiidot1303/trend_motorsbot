@@ -53,3 +53,22 @@ async def regions_of_contacts_keyboard(update, regions_list):
 
     reply_markup = InlineKeyboardMarkup(buttons)
     return reply_markup
+
+async def build_keyboard(update, button_list, n_cols, back_button=True, main_menu_button=True):
+    # split list by two cols
+    button_list_split = [button_list[i:i + n_cols] for i in range(0, len(button_list), n_cols)]
+    # add buttons back and main menu
+    footer_buttons = []
+    if back_button:
+        footer_buttons.append(
+            await get_word('back', update)
+        )
+    if main_menu_button:
+        footer_buttons.append(
+            await get_word('main menu', update)
+        )
+    # add footer buttons if available
+    buttons = button_list_split + [footer_buttons] if footer_buttons else button_list_split
+
+    reply_markup = ReplyKeyboardMarkup(buttons, resize_keyboard=True)
+    return reply_markup

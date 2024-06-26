@@ -104,17 +104,28 @@ lang_dict = {
     
     "social_networks": ["🌐 Ijtimoiy tarmoqlar", "🌐 Социальные сети"],
 
-    "": ["", ""],
+    "about TO and select brand": [
+        "Bizning servis markazlarimiz ishlab chiqaruvchi tomonidan ruxsat etilgan va transport vositalariga ta'mirlash va texnik xizmat ko'rsatish kabi keng ko'lamli ishlarni bajaradi.\
+            \n\nAvtomobil markasini tanlang",
+        "Наши сервисные центры авторизованы производителем и выполняют широкий набор работ, включая гарантию, ремонт и ТО автомобилей. \
+            \n\n<b>Выберите марку автомобиля</b>", 
+        ],
 
-    "": ["", ""],
+    "TO": ["📝 Ta'mirlash uchun ro'yxatdan o'tish", "📝 Запись на ТО "],
 
-    "": ["", ""],
+    "select model": ["Avtomobil modelini tanlang", "Выберите модель автомобиля"],
 
-    "": ["", ""],
+    "select region": ["Hududingizni tanlang", "Выберите свой регион"],
 
-    "": ["", ""],
+    "leave your contacts and we will connect you": [
+        "Kontakt ma'lumotlaringizni qoldiring va biz konsultatsiya uchun va avtomobilingizni tekshirish vaqtini belgilash uchun qayta aloqaga chiqamiz.", 
+        "Оставьте контактные данные, и мы свяжемся с Вами для консультации и назначения времени осмотра Вашего автомобиля. "
+        ],
 
-    "": ["", ""],
+    "thanks wait call": [
+        "Rahmat. Operator javobini kuting", 
+        "Спасибо. Ожидайте звонка оператора. "
+        ],
 
     "": ["", ""],
 

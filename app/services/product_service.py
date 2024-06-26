@@ -32,3 +32,13 @@ def product_list_all():
 async def get_product_by_id(id):
     obj = await Product.objects.aget(pk=id)
     return obj
+
+@sync_to_async
+def list_of_brands_of_products():
+    query = Product.objects.all().values_list('brand', flat=True).distinct()
+    return list(query)
+
+@sync_to_async
+def list_of_models_of_products_by_brand(brand):
+    query = Product.objects.filter(brand=brand).values_list('model', flat=True).distinct()
+    return list(query)

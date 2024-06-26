@@ -12,9 +12,10 @@ from bot.resources.strings import lang_dict
 from bot.resources.conversationList import *
 
 from bot.bot import (
-    main, login, web_app
+    main, login, web_app, TO
 )
 
+exceptions_for_filter_text = (~filters.COMMAND) & (~filters.Text(lang_dict['main menu']))
 
 login_handler = ConversationHandler(
     entry_points=[CommandHandler("start", main.start)],
@@ -46,11 +47,41 @@ contacts_of_region_handler = CallbackQueryHandler(main.contacts_of_region, patte
 
 social_networks_handler = MessageHandler(filters.Text(lang_dict['social_networks']), main.social_networks)
 
+TO_handler = ConversationHandler(
+    entry_points=[
+        MessageHandler(filters.Text(lang_dict['TO']), main.TO)
+    ],
+    states={
+        GET_BRAND_NAME: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_brand_name)
+        ],
+        GET_MODEL_NAME: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_model_name)
+        ],
+        GET_REGION: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_region)
+        ],
+        GET_NAME: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_name)
+        ],
+        GET_CONTACT: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_contact)
+        ],
+
+    },
+    fallbacks=[
+        CommandHandler('start', TO.start),
+        MessageHandler(filters.Text(lang_dict['main menu']), TO.start)
+    ],
+    name="TO",
+)
+
 handlers = [
     login_handler,
     web_app_data_handler,
     contact_handler,
     contacts_of_region_handler,
     social_networks_handler,
+    TO_handler,
 
 ]

@@ -48,3 +48,8 @@ def get_vin_code_by_product_and_branch(product: Product, branch_id: int):
     branch: Branch = Branch.objects.get(pk=branch_id)
     vin_codes = Vin_code.objects.filter(product = product, branch_title = branch.title)
     return vin_codes[0] if vin_codes else None
+
+@sync_to_async
+def list_regions_of_branches():
+    query = Branch.objects.all().values_list('region', flat=True).distinct()
+    return list(query)
