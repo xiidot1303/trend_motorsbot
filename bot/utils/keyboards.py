@@ -36,3 +36,20 @@ async def settings_keyboard(update):
     ]
 
     return buttons
+
+async def regions_of_contacts_keyboard(update, regions_list):
+    # create buttons list
+    buttons_list = [
+        InlineKeyboardButton(
+            text=await get_word(region, update),
+            callback_data=f'contacts_of-{region}'
+        )
+        for region in regions_list
+    ]
+    # split list by two cols
+    buttons = [
+        buttons_list[i:i + 2] 
+        for i in range(0, len(buttons_list), 2)]
+
+    reply_markup = InlineKeyboardMarkup(buttons)
+    return reply_markup

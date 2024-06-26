@@ -3,6 +3,10 @@ from bot.models import *
 from django.utils.html import format_html
 from django.urls import reverse
 
+class Standart(admin.ModelAdmin):
+    def get_list_display(self, request):
+        return [field.name for field in self.model._meta.concrete_fields]
+
 class Bot_userAdmin(admin.ModelAdmin):
     def get_list_display(self, request):
         if request.user.is_superuser:
@@ -74,3 +78,4 @@ class MesageAdmin(admin.ModelAdmin):
 
 admin.site.register(Bot_user, Bot_userAdmin)
 admin.site.register(Message, MesageAdmin)
+admin.site.register(Contact, Standart)

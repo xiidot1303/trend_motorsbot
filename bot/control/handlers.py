@@ -40,7 +40,14 @@ login_handler = ConversationHandler(
 
 web_app_data_handler = MessageHandler(filters.StatusUpdate.WEB_APP_DATA, web_app.web_app_data)
 
+contact_handler = MessageHandler(filters.Text(lang_dict['contacts']), main.contact)
+
+contacts_of_region_handler = CallbackQueryHandler(main.contacts_of_region, pattern=r"^contacts_of")
+
 handlers = [
     login_handler,
     web_app_data_handler,
+    contact_handler,
+    contacts_of_region_handler,
+
 ]

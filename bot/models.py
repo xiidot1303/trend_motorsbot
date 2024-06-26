@@ -38,3 +38,23 @@ class Message(models.Model):
     class Meta:
         verbose_name = "Сообщение"
         verbose_name_plural = "Сообщения"
+
+class Contact(models.Model):
+    REGIION_CHOICES = [
+        ('andijan', 'Andijon viloyati'),
+        ('bukhara', 'Buxoro viloyati'),
+        ('fergana', 'Farg‘ona viloyati'),
+        ('jizzakh', 'Jizzax viloyati'),
+        ('kashkadarya', 'Qashqadaryo viloyati'),
+        ('khorezm', 'Xorazm viloyati'),
+        ('namangan', 'Namangan viloyati'),
+        ('navoiy', 'Navoiy viloyati'),
+        ('samarkand', 'Samarqand viloyati'),
+        ('sirdaryo', 'Sirdaryo viloyati'),
+        ('surkhandarya', 'Surxondaryo viloyati'),
+        ('tashkent', 'Toshkent viloyati'),
+        ('karakalpakstan', 'Qoraqalpog‘iston Respublikasi'),
+        ('tashkent_city', 'Toshkent')
+    ]
+    region = models.CharField(null=True, blank=True, max_length=64, choices=REGIION_CHOICES, unique=True, verbose_name='Регион')
+    value = models.TextField(blank=False, max_length=2048, verbose_name='Текст')

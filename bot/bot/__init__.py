@@ -47,8 +47,10 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
         text=await get_word('trade in', update),
         web_app=WebAppInfo(url='https://trendmotors.uz/trade-in')
     )
+    contacts_button = await get_word('contacts', update)
     keyboards = [
         [buy_car_button, trade_in_button],
+        [contacts_button]
     ]
 
     reply_markup = ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)
