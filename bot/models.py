@@ -58,3 +58,14 @@ class Contact(models.Model):
     ]
     region = models.CharField(null=True, blank=True, max_length=64, choices=REGIION_CHOICES, unique=True, verbose_name='Регион')
     value = models.TextField(blank=False, max_length=2048, verbose_name='Текст')
+
+    class Meta:
+        verbose_name = "Контакты"
+        verbose_name_plural = "Контакты"
+
+class SocialNetworks(models.Model):
+    value = models.TextField(blank=False, max_length=1024, verbose_name="Текст")
+
+    class Meta:
+        verbose_name = "Социальные сети"
+        verbose_name_plural = "Социальные сети"

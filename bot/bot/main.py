@@ -36,3 +36,7 @@ async def contacts_of_region(update: Update, context: CustomContext):
     *args, region_title = data.split("-")
     contact: Contact = await get_contact_by_region(region_title)
     await bot_edit_message_text(query, context, contact.value)
+
+async def social_networks(update: Update, context: CustomContext):
+    text = await get_social_networks_text()
+    await update_message_reply_text(update, text)

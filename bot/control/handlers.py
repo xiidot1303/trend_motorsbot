@@ -44,10 +44,13 @@ contact_handler = MessageHandler(filters.Text(lang_dict['contacts']), main.conta
 
 contacts_of_region_handler = CallbackQueryHandler(main.contacts_of_region, pattern=r"^contacts_of")
 
+social_networks_handler = MessageHandler(filters.Text(lang_dict['social_networks']), main.social_networks)
+
 handlers = [
     login_handler,
     web_app_data_handler,
     contact_handler,
     contacts_of_region_handler,
+    social_networks_handler,
 
 ]

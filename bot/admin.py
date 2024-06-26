@@ -2,6 +2,7 @@ from django.contrib import admin
 from bot.models import *
 from django.utils.html import format_html
 from django.urls import reverse
+from solo.admin import SingletonModelAdmin
 
 class Standart(admin.ModelAdmin):
     def get_list_display(self, request):
@@ -79,3 +80,4 @@ class MesageAdmin(admin.ModelAdmin):
 admin.site.register(Bot_user, Bot_userAdmin)
 admin.site.register(Message, MesageAdmin)
 admin.site.register(Contact, Standart)
+admin.site.register(SocialNetworks, SingletonModelAdmin)

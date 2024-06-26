@@ -102,7 +102,7 @@ lang_dict = {
 
     "tashkent_city": ["Toshkent shahri", "город Ташкент"],
     
-    "": ["", ""],
+    "social_networks": ["🌐 Ijtimoiy tarmoqlar", "🌐 Социальные сети"],
 
     "": ["", ""],
 

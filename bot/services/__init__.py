@@ -33,3 +33,10 @@ async def get_object_by_user_id(user_id):
 async def get_object_by_update(update):
     obj = await Bot_user.objects.aget(user_id=update.message.chat.id)
     return obj
+
+@sync_to_async
+def get_social_networks_text() -> SocialNetworks:
+    if query:=SocialNetworks.objects.all():
+        return query[0].value
+    else:
+        "."
