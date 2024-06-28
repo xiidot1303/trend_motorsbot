@@ -194,23 +194,20 @@ class Lead(LeadCustomFields):
         pipeline_id = 8282930 Cервис авто
         """
         self.pipeline_id = pipeline_id
+        self.custom_fields_values = None
 
     async def set_data_for_8282930(self, brand, model, region):
-        self.brand = brand
-        self.model = model
-        self.region = region
+        self.custom_fields_values = await self.get_8282930(
+            brand=brand, model=model, region=region
+        )
 
     async def create_lead(self):
         url = URL + "/api/v4/leads"
         headers = await generate_headers()
-        custom_fields_values = None
+        custom_fields_values = self.custom_fields_values
         match self.pipeline_id:
             case 7492114:
                 custom_fields_values = await self.get_7492114()
-            case 8282930:
-                custom_fields_values = await self.get_8282930(
-                    brand=self.brand, model=self.model, region=self.region
-                )
 
         data = [
             {
