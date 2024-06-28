@@ -111,7 +111,7 @@ lang_dict = {
             \n\n<b>Выберите марку автомобиля</b>", 
         ],
 
-    "TO": ["📝 Ta'mirlash uchun ro'yxatdan o'tish", "📝 Запись на ТО "],
+    "TO": ["📝 Ta'mirlash uchun ro'yxatdan o'tish", "📝 Запись на ТО"],
 
     "select model": ["Avtomobil modelini tanlang", "Выберите модель автомобиля"],
 
