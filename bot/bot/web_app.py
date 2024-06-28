@@ -68,7 +68,8 @@ async def send_contract(
     contact_id = bot_user.amocrm_contact_id
 
     # create lead
-    lead_id = await amocrm.create_lead()
+    lead_obj: amocrm.Lead = amocrm.Lead(pipeline_id=7492114)
+    lead_id = await lead_obj.create_lead()
 
     # set lead id to order
     await set_amocrm_lead_id_to_order(order, lead_id)

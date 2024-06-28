@@ -1,6 +1,8 @@
 from bot.bot import *
 from app.services.product_service import *
 from bot.services.contact_service import list_of_regions_of_contacts
+from app.services import amocrm_service as amocrm
+import asyncio
 
 async def start(update: Update, context: CustomContext):
     await main_menu(update, context)
@@ -96,9 +98,15 @@ async def get_contact(update: Update, context: CustomContext):
     
     # get contact of user from message text
     contact = update.message.text
+    context.user_data['contact'] = contact
+    # collect all data of the statement from user data
 
-    # send statement to amo crm that create lead
-    ##
+    # get bot user
+    bot_user: Bot_user = await get_object_by_user_id(update.message.chat.id)
+    ## send statement to amo crm that create lead
+    asyncio.create_task(
+        create_lead_in_amocrm(bot_user, context)
+    )
 
     # send last message
     await update_message_reply_text(
@@ -107,3 +115,21 @@ async def get_contact(update: Update, context: CustomContext):
         )
     await main_menu(update, context)
     return ConversationHandler.END
+
+async def create_lead_in_amocrm(bot_user: Bot_user, context: CustomContext):
+    # create contact in amocrm if not created in the past
+    data = context.user_data
+    brand, model, region, name, contact = data['brand'], data['model'], data['region'], data['name'], data['contact'], 
+    contact_id = await amocrm.create_simple_contact(
+        name, contact
+    )
+
+    # create lead
+    lead_obj: amocrm.Lead = amocrm.Lead(pipeline_id=8282930)
+    await lead_obj.set_data_for_8282930(
+        brand, model, region
+    )
+    lead_id = await lead_obj.create_lead()
+
+    # link contact to lead
+    await amocrm.link_contact_to_lead(lead_id=lead_id, contact_id=contact_id)

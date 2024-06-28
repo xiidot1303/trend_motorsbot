@@ -1,5 +1,6 @@
 from config import AMOCRM_CLIENT_ID, AMOCRM_CLIENT_SECRET
 from app.services import *
+from app.utils.amocrm_utils import *
 import aiofiles
 
 URL = "https://trendmotor.amocrm.ru"
@@ -65,7 +66,39 @@ async def get_vin_codes():
             break
 
     return result
-    
+
+async def create_simple_contact(
+        name, phone_number
+    ):
+
+    url = URL + '/api/v4/contacts'
+    headers = await generate_headers()
+    method = "post"
+
+    data = [
+        {
+            "name": name,
+            "first_name": name,
+            "custom_fields_values": [
+                {
+                    "field_id": 1438451,
+                    "values": [
+                        {
+                            "value": phone_number,
+                            "enum_id": 858577,
+                            "enum_code": "WORK"
+                        }
+                    ]
+                },
+            ]
+        }
+    ]
+
+    content, h = await send_request(url, data, headers=headers, type=method)
+    contact_id = content['_embedded']['contacts'][0]['id']
+    return contact_id
+
+
 async def create_contact(
         name, surname, phone_number, passport_serial, passport_number,
         date_birth: int, doc_give_place, date_begin_document: int, pnfl, birth_place
@@ -154,59 +187,41 @@ async def create_contact(
     contact_id = content['_embedded']['contacts'][0]['id']
     return contact_id
 
-async def create_lead():
-    url = URL + "/api/v4/leads"
-    headers = await generate_headers()
+class Lead(LeadCustomFields):
+    def __init__(self, pipeline_id):
+        """
+        pipeline_id = 7492114 Заказ авто\n
+        pipeline_id = 8282930 Cервис авто
+        """
+        self.pipeline_id = pipeline_id
 
-    data = [
-        {
-            "created_by": 0,
-            "pipeline_id": 7492114,
-            "custom_fields_values": [
-                {
-                    "field_id": 1614073,
-                    "values": [
-                        {
-                            "value": "Безналичный",
-                            "enum_id": 3832001,
-                            "enum_code": None
-                        }
-                    ]
-                },
-                {
-                    "field_id": 1616659,
-                    "values": [
-                        {
-                            "value": "Реклама в интернете",
-                            "enum_id": 4028735,
-                            "enum_code": None
-                        }
-                    ]
-                },
-                {
-                    "field_id": 1598657,
-                    "values": [
-                        {
-                            "value": "Электромобиль",
-                            "enum_id": 1026879,
-                            "enum_code": None
-                        }
-                    ]
-                },
-                {
-                "field_id": 1617025,
-                "values": [
-                        {
-                            "value": True
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-    content, h = await send_request(url, data, headers=headers, type='post')
-    lead_id = content['_embedded']['leads'][0]['id']
-    return lead_id
+    async def set_data_for_8282930(self, brand, model, region):
+        self.brand = brand
+        self.model = model
+        self.region = region
+
+    async def create_lead(self):
+        url = URL + "/api/v4/leads"
+        headers = await generate_headers()
+        custom_fields_values = None
+        match self.pipeline_id:
+            case 7492114:
+                custom_fields_values = await self.get_7492114()
+            case 8282930:
+                custom_fields_values = await self.get_8282930(
+                    brand=self.brand, model=self.model, region=self.region
+                )
+
+        data = [
+            {
+                "created_by": 0,
+                "pipeline_id": self.pipeline_id,
+                "custom_fields_values": custom_fields_values
+            }
+        ]
+        content, h = await send_request(url, data, headers=headers, type='post')
+        lead_id = content['_embedded']['leads'][0]['id']
+        return lead_id
 
 async def link_vin_code_and_contact_to_lead(
         lead_id, vin_code_id, contact_id
@@ -234,6 +249,28 @@ async def link_vin_code_and_contact_to_lead(
 
     content, h = await send_request(url, data, headers=headers, type='post')
     return
+
+
+async def link_contact_to_lead(
+        lead_id, contact_id
+    ):
+    headers = await generate_headers()
+    url = URL + f"/api/v4/leads/{lead_id}/link"
+
+    data = [
+        {
+            "to_entity_id": contact_id,
+            "to_entity_type": "contacts",
+            "metadata": {
+                "is_main": True
+            }
+        }
+    ]
+
+    content, h = await send_request(url, data, headers=headers, type='post')
+    return
+
+
 
 async def change_lead_status(lead_id):
     url = URL + "/api/v4/leads"
