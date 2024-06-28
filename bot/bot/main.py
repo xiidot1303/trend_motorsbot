@@ -1,6 +1,7 @@
 from bot.bot import *
 from bot.services.contact_service import list_of_regions_of_contacts, get_contact_by_region
 from bot.bot.TO import to_the_getting_brand_name as _to_the_getting_brand_name
+from bot.bot.feedback import to_the_getting_name as _to_the_getting_name
 import json
 
 async def start(update: Update, context: CustomContext):
@@ -44,3 +45,6 @@ async def social_networks(update: Update, context: CustomContext):
 
 async def TO(update: Update, context: CustomContext):
     return await _to_the_getting_brand_name(update)
+
+async def feedback(update: Update, context: CustomContext):
+    return await _to_the_getting_name(update, context)

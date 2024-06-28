@@ -12,7 +12,7 @@ from bot.resources.strings import lang_dict
 from bot.resources.conversationList import *
 
 from bot.bot import (
-    main, login, web_app, TO
+    main, login, web_app, TO, feedback
 )
 
 exceptions_for_filter_text = (~filters.COMMAND) & (~filters.Text(lang_dict['main menu']))
@@ -76,6 +76,25 @@ TO_handler = ConversationHandler(
     name="TO",
 )
 
+feedback_handler = ConversationHandler(
+    entry_points=[
+        MessageHandler(filters.Text(lang_dict['feedback']), main.feedback)
+    ],
+    states={
+        GET_NAME: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, feedback.get_name)   
+        ],
+        GET_CONTACT: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, feedback.get_contact)
+        ],
+    },
+    fallbacks=[
+        CommandHandler('start', TO.start),
+        MessageHandler(filters.Text(lang_dict['main menu']), TO.start)
+    ],
+    name='feedback'
+)
+
 handlers = [
     login_handler,
     web_app_data_handler,
@@ -83,5 +102,6 @@ handlers = [
     contacts_of_region_handler,
     social_networks_handler,
     TO_handler,
+    feedback_handler,
 
 ]

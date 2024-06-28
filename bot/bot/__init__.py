@@ -50,10 +50,11 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     contacts_button = await get_word('contacts', update)
     social_networks_button = await get_word('social_networks', update)
     TO_button = await get_word('TO', update)
+    feedback_button = await get_word('feedback', update)
     keyboards = [
         [buy_car_button, trade_in_button],
-        [contacts_button, social_networks_button],
-        [TO_button]
+        [TO_button, social_networks_button],
+        [contacts_button, feedback_button]
     ]
 
     reply_markup = ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)
