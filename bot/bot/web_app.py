@@ -69,6 +69,7 @@ async def send_contract(
 
     # create lead
     lead_obj: amocrm.Lead = amocrm.Lead(pipeline_id=7492114)
+    await lead_obj.set_data_for_order_car()
     lead_id = await lead_obj.create_lead()
 
     # set lead id to order

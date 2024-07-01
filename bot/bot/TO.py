@@ -133,7 +133,7 @@ async def create_lead_in_amocrm(bot_user: Bot_user, context: CustomContext):
 
     # create lead
     lead_obj: amocrm.Lead = amocrm.Lead(pipeline_id=8282930)
-    await lead_obj.set_data_for_8282930(
+    await lead_obj.set_data_for_TO(
         brand, model, region
     )
     lead_id = await lead_obj.create_lead()

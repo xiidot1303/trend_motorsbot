@@ -67,7 +67,7 @@ async def create_lead_in_amocrm(bot_user: Bot_user, context: CustomContext):
     )
 
     # create lead
-    lead_obj: amocrm.Lead = amocrm.Lead(pipeline_id=8282930)
+    lead_obj: amocrm.Lead = amocrm.Lead(pipeline_id=7492114)
     lead_id = await lead_obj.create_lead()
 
     # link contact to lead
