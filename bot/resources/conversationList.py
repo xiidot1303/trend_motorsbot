@@ -1,4 +1,4 @@
-n = 11
+n = 12
 (
     GET_LANG,
     GET_NAME,
@@ -11,4 +11,5 @@ n = 11
     GET_BRAND_NAME,
     GET_MODEL_NAME,
     GET_REGION,
+    GET_FEEDBACK_MESSAGE,
 ) = range(0, n)

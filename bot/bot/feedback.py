@@ -22,6 +22,12 @@ async def _to_the_getting_contact(update: Update):
     await update_message_reply_text(update, text, reply_markup=markup)
     return GET_CONTACT
 
+async def _to_the_getting_message(update: Update):
+    text = await get_word('write your feedback', update)
+    markup = await build_keyboard(update, [], 2)
+    await update_message_reply_text(update, text, reply_markup=markup)
+    return GET_FEEDBACK_MESSAGE
+
 ###############################################################################################
 
 async def get_name(update: Update, context: CustomContext):
@@ -43,6 +49,17 @@ async def get_contact(update: Update, context: CustomContext):
     context.user_data['contact'] = contact
     # collect all data of the statement from user data
 
+    return await _to_the_getting_message(update)
+
+async def get_message(update: Update, context: CustomContext):
+    if await is_message_back(update):
+        return await _to_the_getting_contact(update)
+    
+    # get feedback message of user from message text
+    message = update.message.text
+    feedback = f"{lang_dict['message of user'][1]}:\n{message}"
+    context.user_data['feedback'] = feedback
+
     # get bot user
     bot_user: Bot_user = await get_object_by_user_id(update.message.chat.id)
     ## send statement to amo crm that create lead
@@ -61,7 +78,7 @@ async def get_contact(update: Update, context: CustomContext):
 async def create_lead_in_amocrm(bot_user: Bot_user, context: CustomContext):
     # create contact in amocrm if not created in the past
     data = context.user_data
-    name, contact = data['name'], data['contact']
+    name, contact, feedback = data['name'], data['contact'], data['feedback']
     contact_id = await amocrm.create_simple_contact(
         name, contact
     )
@@ -72,3 +89,6 @@ async def create_lead_in_amocrm(bot_user: Bot_user, context: CustomContext):
 
     # link contact to lead
     await amocrm.link_contact_to_lead(lead_id=lead_id, contact_id=contact_id)
+    
+    # add note to lead
+    await amocrm.create_note(lead_id, feedback)

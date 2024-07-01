@@ -87,6 +87,9 @@ feedback_handler = ConversationHandler(
         GET_CONTACT: [
             MessageHandler((filters.TEXT & exceptions_for_filter_text) | filters.CONTACT, feedback.get_contact)
         ],
+        GET_FEEDBACK_MESSAGE: [
+            MessageHandler(filters.TEXT & exceptions_for_filter_text, feedback.get_message)
+        ],
     },
     fallbacks=[
         CommandHandler('start', TO.start),

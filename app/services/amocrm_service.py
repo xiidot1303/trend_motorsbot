@@ -284,3 +284,22 @@ async def change_lead_status(lead_id):
     response = requests.patch(url, json=data, headers=headers)
     status = response.status_code
     return status
+
+async def create_note(lead_id, text):
+    url = URL + f"/api/v4/leads/notes"
+    headers = await generate_headers()
+
+    data = [
+        {
+            "entity_id": lead_id,
+            "note_type": "common",
+            "responsible_user_id": 10287314,
+            "params": {
+                "text": text
+            }
+        },
+    ]
+
+    response = requests.post(url, json=data, headers=headers)
+    status = response.status_code
+    return status
