@@ -14,7 +14,11 @@ async def to_the_getting_name(update: Update, context: CustomContext):
 
 async def _to_the_getting_contact(update: Update):
     text = await get_word('send number', update)
-    markup = await build_keyboard(update, [], 2)
+    i_contact = KeyboardButton(
+        text=await get_word("leave number", update),
+        request_contact=True
+    )
+    markup = await build_keyboard(update, [i_contact], 2)
     await update_message_reply_text(update, text, reply_markup=markup)
     return GET_CONTACT
 
@@ -31,8 +35,11 @@ async def get_contact(update: Update, context: CustomContext):
     if await is_message_back(update):
         return await to_the_getting_name(update, context)
     
-    # get contact of user from message text
-    contact = update.message.text
+    # get contact of user from message text or message contact
+    if c := update.message.contact:
+        contact = c.phone_number
+    else:
+        contact = update.message.text
     context.user_data['contact'] = contact
     # collect all data of the statement from user data
 

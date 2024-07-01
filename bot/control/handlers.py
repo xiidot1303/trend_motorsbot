@@ -65,7 +65,7 @@ TO_handler = ConversationHandler(
             MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_name)
         ],
         GET_CONTACT: [
-            MessageHandler(filters.TEXT & exceptions_for_filter_text, TO.get_contact)
+            MessageHandler((filters.TEXT & exceptions_for_filter_text) | filters.CONTACT, TO.get_contact)
         ],
 
     },
@@ -85,7 +85,7 @@ feedback_handler = ConversationHandler(
             MessageHandler(filters.TEXT & exceptions_for_filter_text, feedback.get_name)   
         ],
         GET_CONTACT: [
-            MessageHandler(filters.TEXT & exceptions_for_filter_text, feedback.get_contact)
+            MessageHandler((filters.TEXT & exceptions_for_filter_text) | filters.CONTACT, feedback.get_contact)
         ],
     },
     fallbacks=[
