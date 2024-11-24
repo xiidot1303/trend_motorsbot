@@ -78,3 +78,27 @@ class Vin_code(models.Model):
     code = models.CharField(null=True, blank=True, max_length=64)
     product = models.ForeignKey('app.Product', null=True, blank=True, on_delete=models.PROTECT)
     branch_title = models.CharField(null=True, blank=True, max_length=255)
+
+
+class Contracts(models.Model):
+    user = models.ForeignKey("bot.Bot_user", null=False, blank=False, on_delete=models.CASCADE)
+    one_c_uidd = models.CharField(null=False, blank=False, max_length=255, unique=True)
+    car = models.CharField(null=False, blank=False, max_length=255)
+    quantity = models.IntegerField(null=False, blank=False)
+    price = models.BigIntegerField(null=False, blank=False)
+    created = models.DateField(auto_now_add=True)
+    pay_date = models.DateField(null=True, blank=True)
+
+
+class PayHistory(models.Model):
+    contract = models.ForeignKey('app.Contracts', null=False, blank=False, on_delete=models.CASCADE)
+    one_c_id = models.BigIntegerField(null=False, blank=False)
+    date = models.DateField(auto_now_add=True)
+    amount = models.BigIntegerField(null=False, blank=False)
+    currency = models.CharField(null=True, blank=True, max_length=4)
+
+
+class PaySchedule(models.Model):
+    contract = models.ForeignKey('app.Contracts', null=False, blank=False, on_delete=models.CASCADE)
+    date = models.DateField(auto_now_add=True)
+    amount = models.BigIntegerField(null=False, blank=False)

@@ -1,4 +1,4 @@
-n = 12
+n = 16
 (
     GET_LANG,
     GET_NAME,
@@ -12,4 +12,8 @@ n = 12
     GET_MODEL_NAME,
     GET_REGION,
     GET_FEEDBACK_MESSAGE,
+    AUTH_PASSPORT,
+    AUTH_CODE,
+    MY_PROFILE,
+    INSTALLMENT,
 ) = range(0, n)

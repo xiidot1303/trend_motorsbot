@@ -28,3 +28,7 @@ AMOCRM_CLIENT_SECRET = os.environ.get("AMOCRM_CLIENT_SECRET")
 MYCAR_LOGIN = os.environ.get("MYCAR_LOGIN")
 MYCAR_PASSWORD = os.environ.get("MYCAR_PASSWORD")
 
+# 1C
+ONE_C_URL = os.environ.get("ONE_C_URL")
+ONE_C_LOGIN = os.environ.get("ONE_C_LOGIN")
+ONE_C_PASSWORD = os.environ.get("ONE_C_PASSWORD")

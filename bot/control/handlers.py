@@ -5,14 +5,14 @@ from telegram.ext import (
     CallbackQueryHandler,
     InlineQueryHandler,
     TypeHandler,
-    ConversationHandler
+    ConversationHandler,
 )
 
 from bot.resources.strings import lang_dict
 from bot.resources.conversationList import *
 
 from bot.bot import (
-    main, login, web_app, TO, feedback
+    main, login, web_app, TO, feedback, auth, my_profile, main_menu
 )
 
 exceptions_for_filter_text = (~filters.COMMAND) & (~filters.Text(lang_dict['main menu']))
@@ -98,7 +98,38 @@ feedback_handler = ConversationHandler(
     name='feedback'
 )
 
+auth_handler = ConversationHandler(
+    entry_points=[
+        MessageHandler(filters.Text(lang_dict['auth']), auth.to_auth)
+    ],
+    states={
+        AUTH_PASSPORT: [MessageHandler(filters.TEXT & exceptions_for_filter_text, auth.check_code)],
+        AUTH_CODE: [MessageHandler(filters.TEXT & exceptions_for_filter_text, auth.check_passport)],
+    },
+    fallbacks=[
+        CommandHandler('start', TO.start),
+        MessageHandler(filters.Text(lang_dict['main menu']), TO.start)
+    ],
+    name='auth'
+)
+
+my_profile_handler = ConversationHandler(
+    entry_points=[
+        MessageHandler(filters.Text(lang_dict['my_profile']), my_profile.to_my_profile)
+    ],
+    states={
+        MY_PROFILE: [MessageHandler(filters.TEXT & exceptions_for_filter_text, my_profile.my_profile)],
+        INSTALLMENT: [MessageHandler(filters.TEXT & exceptions_for_filter_text, my_profile.my_installment)],
+    },
+    fallbacks=[
+        CommandHandler('start', TO.start),
+        MessageHandler(filters.Text(lang_dict['main menu']), TO.start)
+    ],
+    name='my_profile'
+)
+
 handlers = [
+    MessageHandler(filters.TEXT, main_menu),
     login_handler,
     web_app_data_handler,
     contact_handler,
@@ -106,5 +137,6 @@ handlers = [
     social_networks_handler,
     TO_handler,
     feedback_handler,
-
+    auth_handler,
+    my_profile_handler,
 ]

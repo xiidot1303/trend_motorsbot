@@ -51,10 +51,16 @@ async def main_menu(update: Update, context: ContextTypes.DEFAULT_TYPE):
     social_networks_button = await get_word('social_networks', update)
     TO_button = await get_word('TO', update)
     feedback_button = await get_word('feedback', update)
+    auth_button = await get_word('auth', update)
+    profile_button = await get_word('my_profile', update)
+
+    user = await Bot_user.objects.aget(user_id=update.message.from_user.id)
+
     keyboards = [
         [buy_car_button, trade_in_button],
         [TO_button, social_networks_button],
-        [contacts_button, feedback_button]
+        [contacts_button, feedback_button],
+        [profile_button if user.one_c_id else auth_button]
     ]
 
     reply_markup = ReplyKeyboardMarkup(keyboard=keyboards, resize_keyboard=True)

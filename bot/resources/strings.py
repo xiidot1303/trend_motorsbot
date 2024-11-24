@@ -139,13 +139,45 @@ lang_dict = {
         "Сообщение клиента"
         ],
 
-    "": ["", ""],
+    # ======================================== Auth ========================================
+    "auth": ["🔑 Profilga kirish", "🔑 Авторизоваться"],
+    "auth_code": [
+        "Kirish uchun kodingizni quyidagi formatda kiriting: <b>000001234</b>",
+        "Для входа введите ваш код в формате: <b>000001234</b>"
+    ],
+    "auth_passport": [
+        "Kirish uchun kodingizni quyidagi formatda kiriting: <b>000001234</b>",
+        "Введите серию и номер паспорта в формате: <b>AB1234567</b>"
+    ],
+    "auth_success": ["✅Muvaffaqiyatli kirish", "✅Успешный вход"],
+    "auth_error": [
+        "❗️Xato yuz berdi. Iltimos, keyinroq kirishni qayta urinib ko‘ring",
+        "❗️Ошибка при входе. Попробуйте позже"
+    ],
+    "wrong_format": ["Noto'g'ri format!", "Неправильный формат!"],
+    "incorrect_auth": ["Noto'g'ri pasport seriyasi yoki kodi", "Неправильная серия паспорта или код"],
 
-    "": ["", ""],
+    # ======================================== My profile ==================================
+    "my_profile": ["👤 Mening profilim", "👤 Мой профиль"],
 
-    "": ["", ""],
+    "my_contract_bt": ["📄 Shartnomalar", "📄 Контракты"],
+    "my_contract_info": [
+        "🚙{car} - {quantity} ta\n💰{price} sum\n🗒Yaratilgan sana: {created}\n🗓To'lov muddati: {pay_date}",
+        "🚙{car} - {quantity} шт\n💰{price} сум\n🗒Дата создания: {created}\n🗓Дата оплаты: {pay_date}",
+    ],
 
-    "": ["", ""],
+    "installment_bt": ["💳 installment_bt", "💳 Рассрочка"],
+    "history_bt": ["🗓 To'lov tarixi", "🗓 История оплаты"],
+    "history_info": [
+        "🗒{date}\n💰{amount} {currency}",
+        "🗒{date}\n💰{amount} {currency}",
+    ],
+
+    "pay_schedule_bt": ["📆 To'lov jadvali", "📆 График оплаты"],
+
+    "my_profile_ans": ["⬇️ Amalni tanlang", "⬇️ Выберите действие"],
+
+
 
     "": ["", ""],
 
