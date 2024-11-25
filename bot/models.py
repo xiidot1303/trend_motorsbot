@@ -70,3 +70,11 @@ class SocialNetworks(models.Model):
     class Meta:
         verbose_name = "Социальные сети"
         verbose_name_plural = "Социальные сети"
+
+
+class LogGroup(models.Model):
+    tg_id = models.BigIntegerField(null=True, blank=False, verbose_name="chat id")
+
+    class Meta:
+        verbose_name = "Группа для лога"
+        verbose_name_plural = "Группа для логов"
