@@ -82,23 +82,47 @@ class Vin_code(models.Model):
 
 class Contracts(models.Model):
     user = models.ForeignKey("bot.Bot_user", null=False, blank=False, on_delete=models.CASCADE)
-    one_c_uidd = models.CharField(null=False, blank=False, max_length=255, unique=True)
-    car = models.CharField(null=False, blank=False, max_length=255)
-    quantity = models.IntegerField(null=False, blank=False)
-    price = models.BigIntegerField(null=False, blank=False)
-    created = models.DateField(auto_now_add=True)
-    pay_date = models.DateField(null=True, blank=True)
+    one_c_id = models.CharField(null=False, blank=False, max_length=64, unique=True, verbose_name="1C id")
+    one_c_uidd = models.CharField(null=False, blank=False, max_length=255, unique=True, verbose_name="1C uidd")
+    car = models.CharField(null=False, blank=False, max_length=255, verbose_name="Машина")
+    quantity = models.IntegerField(null=False, blank=False, verbose_name="Количество")
+    price = models.BigIntegerField(null=False, blank=False, verbose_name="Цена")
+    created = models.DateField(auto_now_add=True, verbose_name="Создано")
+    pay_date = models.DateField(null=True, blank=True, verbose_name="Срок оплаты")
+    installment = models.BooleanField(default=False, null=False, blank=False, verbose_name="Рассрочка")
+
+    class Meta:
+        verbose_name = "Контракт"
+        verbose_name_plural = "Контракты"
+
+    def __str__(self):
+        return self.car
 
 
 class PayHistory(models.Model):
     contract = models.ForeignKey('app.Contracts', null=False, blank=False, on_delete=models.CASCADE)
-    one_c_id = models.BigIntegerField(null=False, blank=False)
-    date = models.DateField(auto_now_add=True)
-    amount = models.BigIntegerField(null=False, blank=False)
-    currency = models.CharField(null=True, blank=True, max_length=4)
+    one_c_id = models.BigIntegerField(null=False, blank=False, verbose_name="1C id")
+    date = models.DateField(auto_now_add=True, verbose_name="Дата")
+    amount = models.BigIntegerField(null=False, blank=False, verbose_name="Сумма")
+    currency = models.CharField(null=True, blank=True, max_length=4, verbose_name="Валюта")
+
+    class Meta:
+        verbose_name = "История оплаты"
+        verbose_name_plural = "История оплат"
+
+    def __str__(self):
+        return self.contract.car
 
 
 class PaySchedule(models.Model):
-    contract = models.ForeignKey('app.Contracts', null=False, blank=False, on_delete=models.CASCADE)
-    date = models.DateField(auto_now_add=True)
-    amount = models.BigIntegerField(null=False, blank=False)
+    contract = models.OneToOneField('app.Contracts', on_delete=models.CASCADE, related_name='pay_schedule')
+    pay_date = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Следующая дата оплаты")
+    file_id = models.CharField(null=True, blank=True, max_length=255, verbose_name="TG file id")
+    json = models.JSONField(null=False, blank=False)
+
+    class Meta:
+        verbose_name = "График оплаты"
+        verbose_name_plural = "График оплат"
+
+    def __str__(self):
+        return self.contract.car

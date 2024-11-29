@@ -43,10 +43,10 @@ async def check_passport(update: Update, context: CustomContext):
             info = await one_api.get_contragent(update.message.text)
             if info.get("passport_sn") == passport:
                 text = await get_word("auth_success", user=user)
-                await bot_send_message(update, context, text)
                 user.one_c_id = update.message.text
                 await user.asave()
-                sync_tasks.append(asyncio.create_task(one_api.sync_contracts(user=user)))
+                await bot_send_message(update, context, text)
+                sync_tasks.append(asyncio.create_task(one_api.sync_contracts(context.bot, users=[user])))
 
             else:
                 text = await get_word('incorrect_auth', user=user)

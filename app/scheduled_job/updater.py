@@ -5,6 +5,7 @@ from app.scheduled_job import amocrm_job
 from asgiref.sync import async_to_sync
 from app.services.amocrm_service import update_tokens as _update_tokens
 from app.services.one_c_sync import one_api
+from bot.control.updater import application
 
 
 class jobs:
@@ -27,6 +28,7 @@ class jobs:
         'cron', hour=1, minute=0, second=0)
 
     scheduler.add_job(
-        async_to_sync(one_api.sync_contracts),
-        'cron', minute=10, second=0
+        async_to_sync(one_api.sync_all),
+        'cron', minute=15, second=0,
+        args=[application.bot]
     )

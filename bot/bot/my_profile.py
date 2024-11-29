@@ -2,8 +2,8 @@ from bot.bot import *
 from bot.resources.strings import lang_dict
 from bot.resources.conversationList import MY_PROFILE
 
-from app.models import Contracts, PayHistory
-from app.services.one_c_sync import OneCAPI
+from app.models import Contracts, PayHistory, PaySchedule
+from app.services.one_c_sync import one_api
 from bot.models import Bot_user
 
 
@@ -36,7 +36,7 @@ async def my_profile(update: Update, context: CustomContext):
                 created=contract.created.strftime("%Y.%m.%d"), pay_date=contract.pay_date.strftime("%Y.%m.%d")
             ) + "\n\n"
         if not contracts:
-            text = "Not have"
+            text = await get_word("not_have", user=user)
         await bot_send_message(update, context, text=text)
 
     elif update.message.text in lang_dict["installment_bt"]:
@@ -60,9 +60,9 @@ async def my_installment(update: Update, context: CustomContext):
         return
 
     if update.message.text in lang_dict["history_bt"]:
-        text = ""
         contracts = Contracts.objects.filter(user_id=user.id)
         contracts_ids = []
+        text = ""
 
         async for contract in contracts:
             contracts_ids.append(contract.id)
@@ -75,12 +75,20 @@ async def my_installment(update: Update, context: CustomContext):
             ) + "\n\n"
 
         if not pay_histories:
-            text = "Not have"
+            text = await get_word("not_have", user=user)
         await bot_send_message(update, context, text=text)
 
     elif update.message.text in lang_dict["pay_schedule_bt"]:
-        text = "Скоро"
-        await bot_send_message(update, context, text=text)
+        contracts = Contracts.objects.filter(user_id=user.id).order_by('-created')[:10]
+        contract_ids = contracts.values_list('id', flat=True)
+        pay_schedule = PaySchedule.objects.filter(contract_id__in=contract_ids)
+
+        async for pay in pay_schedule:
+            await bot_send_document(update, context, pay.file_id)
+
+        if not pay_schedule:
+            text = await get_word("not_have", user=user)
+            await bot_send_message(update, context, text=text)
 
     elif update.message.text in lang_dict["back"]:
         await to_my_profile(update, context)

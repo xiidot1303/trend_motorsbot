@@ -3,6 +3,7 @@ from app.models import *
 from django.utils.html import format_html
 from django.urls import reverse
 
+
 class ProductAdmin(admin.ModelAdmin):
     search_fields = ['title']
     list_display_links = None
@@ -54,8 +55,27 @@ class Vin_codeAdmin(admin.ModelAdmin):
     def get_list_display(self, request):
         return [field.name for field in self.model._meta.concrete_fields]
 
+
+class ContractsAdmin(admin.ModelAdmin):
+    search_fields = ['user__name', 'user__phone', 'car']
+    list_display = ['id', 'user', 'car', 'quantity', 'price']
+
+
+class PayHistoryAdmin(admin.ModelAdmin):
+    search_fields = ['date', 'one_c_id']
+    list_display = ['one_c_id', 'contract', 'date', 'amount', 'currency']
+
+
+class PayScheduleAdmin(admin.ModelAdmin):
+    search_fields = ['pay_date', 'contract__one_c_id', 'contract__car']
+    list_display = ['contract', 'pay_date']
+
+
 admin.site.register(Product, ProductAdmin)
 admin.site.register(Order, OrderAdmin)
 admin.site.register(Passport_data, Passport_dataAdmin)
 admin.site.register(Branch, BranchAdmin)
 admin.site.register(Vin_code, Vin_codeAdmin)
+admin.site.register(Contracts, ContractsAdmin)
+admin.site.register(PayHistory, PayHistoryAdmin)
+admin.site.register(PaySchedule, PayScheduleAdmin)
