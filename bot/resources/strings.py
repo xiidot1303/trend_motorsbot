@@ -178,7 +178,10 @@ lang_dict = {
     "pay_schedule_bt": ["📆 To'lov jadvali", "📆 График оплаты"],
 
     "my_profile_ans": ["⬇️ Amalni tanlang", "⬇️ Выберите действие"],
-
+    "pay_notify": [
+        "🚙{car}\nℹ️Bo'lib-bo'lib to'lash muddati tugagunga qadar\n⏳ {days} kun qoldi\nIltimos, o'z vaqtida to'lang",
+        "ℹ️До окончания срока оплаты рассрочки по\n🚙{car}\n⏳Осталось {days} дней.\nПожалуйста, оплатите вовремя"
+    ],
 
 
     "": ["", ""],

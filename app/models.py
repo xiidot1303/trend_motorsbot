@@ -1,3 +1,4 @@
+from django.utils import timezone
 from django.db import models
 
 class Product(models.Model):
@@ -116,7 +117,8 @@ class PayHistory(models.Model):
 
 class PaySchedule(models.Model):
     contract = models.OneToOneField('app.Contracts', on_delete=models.CASCADE, related_name='pay_schedule')
-    pay_date = models.DateTimeField(auto_now_add=True, null=False, blank=False, verbose_name="Следующая дата оплаты")
+    pay_date = models.DateTimeField(default=timezone.now, null=False, blank=False, verbose_name="Следующая дата оплаты")
+    payed = models.BooleanField(default=False, null=False, blank=False, verbose_name="Оплачено")
     file_id = models.CharField(null=True, blank=True, max_length=255, verbose_name="TG file id")
     json = models.JSONField(null=False, blank=False)
 

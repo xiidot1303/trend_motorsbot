@@ -155,6 +155,9 @@ class OneCAPI:
                 pay_schedule.pay_date = date
                 await pay_schedule.asave()
                 break
+        else:
+            pay_schedule.payed = True
+            await pay_schedule.asave()
 
     async def sync_order(self, contracts: list[Contracts] = None):
         if not contracts:
