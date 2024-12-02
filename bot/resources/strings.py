@@ -113,6 +113,9 @@ lang_dict = {
 
     "TO": ["📝 Ta'mirlash uchun ro'yxatdan o'tish", "📝 Запись на ТО"],
 
+    "TO_other_model": ["Boshqa", "Другая"],
+    "TO_other_answer": ["Mashinaning modeli va markasini yozing", "Напишите модель и марку машины"],
+
     "select model": ["Avtomobil modelini tanlang", "Выберите модель автомобиля"],
 
     "select region": ["Hududingizni tanlang", "Выберите свой регион"],

@@ -9,20 +9,30 @@ async def start(update: Update, context: CustomContext):
     return ConversationHandler.END
 
 async def to_the_getting_brand_name(update: Update):
+    user = await Bot_user.objects.aget(user_id=update.message.chat.id)
+
     brands_list = await list_of_brands_of_products()
-    markup = await build_keyboard(update, brands_list, 2, back_button=False)
-    text = await get_word('about TO and select brand', update)
+    other_bt = await get_word('TO_other_model', user=user)
+    text = await get_word('about TO and select brand', update, user=user)
+
+    markup = await build_keyboard(update, brands_list + [other_bt], 2, back_button=False)
     await update_message_reply_text(update, text, reply_markup=markup)
     return GET_BRAND_NAME
 
 async def _to_the_getting_model_name(update: Update, context: CustomContext):
-    # get brand from user_data 
+    # get brand from user_data
     brand = context.user_data['brand']
-    # get list of models of this brand
-    models_list = await list_of_models_of_products_by_brand(brand)
-    # create keyboard markup using this list of models
-    markup = await build_keyboard(update, models_list, 2)
-    text = await get_word('select model', update)
+
+    if brand in lang_dict["TO_other_model"]:
+        markup = await build_keyboard(update, [], 2)
+        text = await get_word('TO_other_answer', update)
+    else:
+        # get list of models of this brand
+        models_list = await list_of_models_of_products_by_brand(brand)
+        # create keyboard markup using this list of models
+        markup = await build_keyboard(update, models_list, 2)
+        text = await get_word('select model', update)
+
     await update_message_reply_text(update, text, reply_markup=markup)
     return GET_MODEL_NAME
 
