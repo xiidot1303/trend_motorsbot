@@ -16,7 +16,7 @@ class Product(models.Model):
     battery_capacity = models.CharField(null=True, blank=True, max_length=16, verbose_name="Емкость батарей") # kW
 
     remainder = models.IntegerField(null=True, blank=True, default=0, verbose_name="Остаток") # остатка
-    view_to = models.BooleanField(default=False, null=False, blank=False, verbose_name="Показать в TO")
+    view_to = models.BooleanField(default=True, null=False, blank=False, verbose_name="Показать в TO")
 
     class Meta:
         verbose_name = "Продукт"
