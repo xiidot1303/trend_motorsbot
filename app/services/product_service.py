@@ -27,7 +27,7 @@ async def update_or_create_product(
         await product.asave()
 
 def product_list_all():
-    return Product.objects.all().order_by('id')
+    return Product.objects.exclude(element_id=None).order_by('id')
 
 async def get_product_by_id(id):
     obj = await Product.objects.aget(pk=id)
@@ -35,10 +35,10 @@ async def get_product_by_id(id):
 
 @sync_to_async
 def list_of_brands_of_products():
-    query = Product.objects.all().values_list('brand', flat=True).distinct()
+    query = Product.objects.filter(view_to=True).values_list('brand', flat=True).distinct().order_by('brand')
     return list(query)
 
 @sync_to_async
 def list_of_models_of_products_by_brand(brand):
-    query = Product.objects.filter(brand=brand).values_list('model', flat=True).distinct()
+    query = Product.objects.filter(brand=brand, view_to=True).values_list('model', flat=True).distinct()
     return list(query)

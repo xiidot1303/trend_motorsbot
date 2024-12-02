@@ -10,9 +10,10 @@ class ProductAdmin(admin.ModelAdmin):
     list_filter = ['brand', 'color', 'category']
     list_display = [
         'title', 'model', 'brand', 'color', 'price', 'category', 
-        'description', 'open_photo', 'battery_range', 'battery_capacity',
+        'view_to', 'open_photo', 'battery_range', 'battery_capacity',
         'remainder', 'edit_button'
     ]
+    list_editable = ('view_to',)
     
     def edit_button(self, obj):
         change_url = reverse('admin:app_product_change', args=[obj.id])
